@@ -24,5 +24,5 @@ exec {'gem-server':
   path => $path,
   cwd => "/vagrant",
   command => 'gem server --daemon',
-  unless => 'wget -o /dev/null localhost:8808',
+  unless => 'wget -O /dev/null localhost:8808',
 }
