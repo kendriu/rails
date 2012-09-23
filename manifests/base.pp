@@ -1,5 +1,6 @@
 package { 'apt-install':
   name => ['puppet', 
+           'build-essential',
            'vim', 
            'ruby', 
            'nodejs',
@@ -8,17 +9,21 @@ package { 'apt-install':
   ensure => present,
 }
 
-define gem(){
+define gem($ensure=present){
   package {"gem-${title}":
     name => $title,
-    ensure => present,
+    ensure => $ensure,
     provider => 'gem',
     require => Package['apt-install'],
   }
 }
 
 gem {'rails':}
-gem {'bundle':}
+gem {"json":
+       ensure => '1.7.5'}
+
+Gem["json"] -> Gem['rails']
+
 
 exec {'gem-server':
   path => $path,
