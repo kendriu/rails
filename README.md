@@ -1,0 +1,4 @@
+rails
+=====
+
+Instalcja testowa ruby
