@@ -5,15 +5,20 @@ package { 'apt-install':
            'nodejs',
            'sqlite',
            'mysql-client'],
-  ensure => latest,
+  ensure => present,
 }
 
-package {'gem-rails':
-  name => 'rails',
-  ensure => present,
-  provider => 'gem',
-  require => Package['apt-install'],
+define gem(){
+  package {"gem-${title}":
+    name => $title,
+    ensure => present,
+    provider => 'gem',
+    require => Package['apt-install'],
+  }
 }
+
+gem {'rails':}
+gem {'bundle':}
 
 exec {'gem-server':
   path => $path,
