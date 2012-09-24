@@ -4,7 +4,8 @@ package { 'apt-install':
            'vim', 
            'ruby', 
            'nodejs',
-           'sqlite',
+           'sqlite3',
+           'libsqlite3-dev',
            'mysql-client'],
   ensure => present,
 }
@@ -19,11 +20,10 @@ define gem($ensure=present){
 }
 
 gem {'rails':}
+gem {'sqlite3':}
 gem {"json":
-       ensure => '1.7.5'}
-
-Gem["json"] -> Gem['rails']
-
+       ensure => '1.7.5'
+}
 
 exec {'gem-server':
   path => $path,
