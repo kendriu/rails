@@ -2,6 +2,8 @@
   %p#notice some notice
 
 %h1 Your Pragmatic Catalog
+- if @counter > 5
+  %span Catalog was visited #{pluralize(@counter, 'time')}.
 
 - @products.each do |product|
   .entry
@@ -10,3 +12,4 @@
     = sanitize(product.description)
     .price_line
       %span.price= number_to_currency product.price
+      = button_to 'Add to Cart', line_items_path(:product_id => product)
