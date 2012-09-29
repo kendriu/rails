@@ -1,0 +1,21 @@
+!!!
+%html
+  %head
+    %title PragProg Books Online Store
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body{:class => "#{controller.controller_name}"}
+    #banner
+      = image_tag("logo.png")
+      = @page_title || "Pragmatic Bookshelf"
+    #columns
+      #side
+        %ul   
+          = list_of([['','Home'],
+            ['/faq', 'Questions'],
+            ['/news','News'], 
+            ['/contact','Contact']]) do |data|
+            = link_to data[1], "http://www....#{data[0]}"
+      #main
+        = yield
