@@ -1,6 +1,7 @@
 package { 'apt-install':
-  name => ['puppet', 
+  name => ['puppet',
            'build-essential',
+           'git',
            'vim', 
            'ruby', 
            'nodejs',
@@ -19,11 +20,17 @@ define gem($ensure=present){
   }
 }
 
+# rails dependencies
 gem {'rails':}
 gem {'sqlite3':}
 gem {"json":
        ensure => '1.7.5'
 }
+
+# haml2html dependecies
+gem {'haml':}
+gem {'hpricot':}
+gem {'ruby_parser':}
 
 exec {'gem-server':
   path => $path,
