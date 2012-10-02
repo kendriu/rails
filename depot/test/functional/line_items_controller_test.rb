@@ -3,6 +3,8 @@ require 'test_helper'
 class LineItemsControllerTest < ActionController::TestCase
   setup do
     @line_item = line_items(:one)
+    @double_item = line_items(:double)
+    session[:cart_id] = carts(:one)
   end
 
   test "should get index" do
@@ -18,7 +20,7 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should create line_item" do
     assert_difference('LineItem.count') do
-      post :create, :product_id => products(:ruby).id
+      post :create, :product_id => products(:two).id
     end
 
     assert_redirected_to cart_path(assigns(:line_item).cart)
@@ -44,6 +46,14 @@ class LineItemsControllerTest < ActionController::TestCase
       delete :destroy, :id => @line_item
     end
 
-    assert_redirected_to line_items_path
+    assert_redirected_to cart_path @line_item.cart
+  end
+  
+  test "should decrease line_item quantity" do
+    assert_difference('LineItem.count', 0) do
+      delete :destroy, :id => @double_item
+    end
+    assert 1, @double_item.reload.quantity
+    assert_redirected_to cart_path @double_item.cart
   end
 end
