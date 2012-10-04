@@ -6,5 +6,6 @@ class StoreController < ApplicationController
     end
     session[:counter] += 1
     @counter = session[:counter]
+    @cart = current_cart
   end
 end
