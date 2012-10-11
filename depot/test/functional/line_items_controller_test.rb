@@ -57,7 +57,7 @@ class LineItemsControllerTest < ActionController::TestCase
       delete :destroy, :id => @line_item
     end
 
-    assert_redirected_to cart_path @line_item.cart
+    assert_redirected_to store_path
   end
   
   test "should decrease line_item quantity" do
@@ -65,6 +65,6 @@ class LineItemsControllerTest < ActionController::TestCase
       delete :destroy, :id => @double_item
     end
     assert 1, @double_item.reload.quantity
-    assert_redirected_to cart_path @double_item.cart
+    assert_redirected_to store_path 
   end
 end
