@@ -1,5 +1,6 @@
 package { 'apt-install':
   name => ['puppet',
+           'curl',
            'build-essential',
            'git',
            'vim', 
