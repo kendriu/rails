@@ -11,10 +11,12 @@ function reload_cart(callback) {
 	$('#cart').html("<%= j render @cart %>");
 	highlight_item();
 }
+
+$("#notice").hide();
+
 if ($('#cart tr').length == 1) { 
 	$('#cart').show('blind', 1000, reload_cart); 
 }
 else {
   reload_cart();
 }
-
