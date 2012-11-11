@@ -1,3 +1,26 @@
+# project
+class project{
+  exec {'bundle':
+    path => $path,
+    cwd => '/vagrant/depot'
+  }
+}
+
+stage {'after':
+  require => Stage['main']
+}
+
+class {'project':
+  stage => after,
+}
+
+# apt-get update
+exec { "apt-update":
+  command => "apt-get update",
+  path => $path
+}
+
+# main installation
 package { 'apt-install':
   name => ['puppet',
            'curl',
@@ -10,6 +33,7 @@ package { 'apt-install':
            'libsqlite3-dev',
            'mysql-client'],
   ensure => present,
+  require => Exec['apt-update']
 }
 
 define gem($ensure=present){
